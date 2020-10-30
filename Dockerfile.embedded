@@ -1,0 +1,9 @@
+FROM starkandwayne/install-cf4k8s:base
+
+ARG CF4K8S_VERSION
+RUN git config --global advice.detachedHead false \
+ && git clone --depth 1 -b v$CF4K8S_VERSION https://github.com/cloudfoundry/cf-for-k8s.git /opt/cf4k8s \
+ && rm -rf /opt/cf4k8s/.git \
+ && echo "$CF4K8S_VERSION" > /opt/cf4k8s/.cf4k8s.version
+
+WORKDIR /opt/cf4k8s

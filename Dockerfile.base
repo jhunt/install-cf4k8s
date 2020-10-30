@@ -1,0 +1,18 @@
+FROM ubuntu:20.04 AS build
+
+RUN apt-get update \
+ && apt-get install -y curl git
+
+RUN mkdir /dist \
+ && curl -sLo /dist/ytt    https://github.com/k14s/ytt/releases/download/v0.30.0/ytt-linux-amd64 \
+ && curl -sLo /dist/kapp   https://github.com/k14s/kapp/releases/download/v0.34.0/kapp-linux-amd64 \
+ && curl -sLo /dist/kbld   https://github.com/k14s/kbld/releases/download/v0.27.0/kbld-linux-amd64 \
+ && curl -sLo /dist/imgpkg https://github.com/k14s/imgpkg/releases/download/v0.2.0/imgpkg-linux-amd64 \
+ && curl -sLo /dist/vendir https://github.com/k14s/vendir/releases/download/v0.11.0/vendir-linux-amd64 \
+ && curl -sL 'https://packages.cloudfoundry.org/stable?release=linux64-binary&version=v7&source=github' | tar -C /dist -xz cf cf7 \
+ && curl -sLo /dist/kubectl https://storage.googleapis.com/kubernetes-release/release/v1.19.3/bin/linux/amd64/kubectl \
+ && chmod 0755 /dist/* \
+ && mv /dist/* /usr/bin \
+ && rmdir /dist
+
+ENTRYPOINT ["/install-cf"]

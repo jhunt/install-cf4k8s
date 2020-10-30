@@ -1,0 +1,30 @@
+---
+apiVersion: batch/v1
+kind: Job
+metadata:
+  namespace: demo-cf4k8s
+  name:      install-cf4k8s
+spec:
+  backoffLimit: 2
+
+  template:
+    spec:
+      restartPolicy: Never
+
+      volumes:
+        - name: cf-values
+          configMap:
+            name: cf-values
+
+      containers:
+        - name:  install
+          image: starkandwayne/install-cf4k8s:1.0.0
+          imagePullPolicy: Always
+
+          volumeMounts:
+            - name: cf-values
+              mountPath: /etc/cf
+
+          env:
+            - name:  CF_VALUES_FROM
+              value: /etc/cf/cf-values.yml
