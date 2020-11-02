@@ -2,7 +2,7 @@
 set -eu
 
 echo "deploying cf-$(cat .cf4k8s.version) via kapp..."
-echo "=============$(cat .cf4k8s.version | sed -e 's/./=/')==========="
+echo "=============$(cat .cf4k8s.version | sed -e 's/./=/g')==========="
 cf_values_from=${CF_VALUES_YAML:-/etc/cf/cf-values.yml}
 if [[ -z "${cf_values_from}" ]]; then
   echo >&2 "CF_VALUES_YAML not properly set; refusing to continue."
@@ -13,6 +13,6 @@ if [[ ! -f "${cf_values_from}" ]]; then
   exit 1
 fi
 echo "using cf-values.yml at '${cf_values_from}'..."
-kapp deploy -y -a cf -f <(ytt -f config -f ${cf_values_from})
-echo "=============$(cat .cf4k8s.version | sed -e 's/./=/')==========="
+kapp deploy -y -a cf -f <(ytt -f config -f - <${cf_values_from})
+echo "=============$(cat .cf4k8s.version | sed -e 's/./=/g')==========="
 echo "DONE"

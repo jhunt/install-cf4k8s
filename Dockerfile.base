@@ -15,4 +15,5 @@ RUN mkdir /dist \
  && mv /dist/* /usr/bin \
  && rmdir /dist
 
+COPY /install-cf /install-cf
 ENTRYPOINT ["/install-cf"]
