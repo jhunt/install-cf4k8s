@@ -1,0 +1,16 @@
+{{- if .Values.serviceAccount.fullAccess -}}
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRoleBinding
+metadata:
+  name: {{ template "cf4k8s.serviceAccountName" . }}-full-access
+  labels:
+{{ include "cf4k8s.labels" . | indent 4 }}
+roleRef:
+  apiGroup: rbac.authorization.k8s.io
+  kind: ClusterRole
+  name: cluster-admin
+subjects:
+  - kind:      ServiceAccount
+    namespace: {{ .Release.Namespace }}
+    name:      {{ template "cf4k8s.serviceAccountName" . }}
+{{- end -}}

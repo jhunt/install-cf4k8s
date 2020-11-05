@@ -1,0 +1,6 @@
+Cloud Foundry for Kubernetes is now installing!
+
+To check on the status / progress of the installation job, run:
+
+    kubectl logs -n {{ .Release.Namespace }} jobs/{{ include "cf4k8s.fullname" . }} -f
+

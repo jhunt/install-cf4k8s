@@ -1,0 +1,7 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: cf-values
+data:
+  cf-values.yml: |
+    {{- .Values.cf.values | nindent 4 }}

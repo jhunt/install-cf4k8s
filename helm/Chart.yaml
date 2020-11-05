@@ -1,0 +1,6 @@
+name:        cf4k8s
+description: Unofficial Chart for installing Cloud Foundry atop Kubernetes
+
+apiVersion: v1
+appVersion: "1.0.0"
+version:    "0.1.0"
