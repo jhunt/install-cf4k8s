@@ -1,0 +1,13 @@
+#!/usr/bin/env perl
+print "---\n";
+print "apiVersion: v1\n";
+print "kind: ConfigMap\n";
+print "metadata:\n";
+print "  name: cf-values\n";
+print "data:\n";
+print "  cf-values.yml: |\n";
+while (<>) {
+	s/^/    /g;
+	print;
+}
+exit 0;
