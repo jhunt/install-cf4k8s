@@ -20,3 +20,8 @@ check:
 	docker run $(IMAGE):base cf --version
 	docker run $(IMAGE):base cf7 --version
 	docker run $(IMAGE):base kubectl version --client
+
+helm:
+	helm package ./helm
+
+.PHONY: build push latest check helm
